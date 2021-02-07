@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { StyleSheet, Text, View } from 'react-native';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const styles = StyleSheet.create({
+    root: { paddingTop: 60, paddingBottom: 16, paddingHorizontal: 16, alignItems: 'center'},
+    box: { backgroundColor: 'red', minWidth: 768  },
+    title: { fontSize: 40, fontWeight: 'bold' },
+    subtitle: { fontSize: 16, fontWeight: 'normal' }
+});
+
+class App extends React.Component {
+  render() {
+    return (
+        <View style={styles.root}>
+            <View style={styles.box}>
+              <Text style={styles.title}>{'HLTV Weapon Stats'}</Text>
+              <Text style={styles.subtitle}>{'2015-2021'}</Text>
+                <View>
+
+                </View>
+            </View>
+        </View>
+    );
+  }
 }
 
-export default App;
+export default App
