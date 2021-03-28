@@ -16,7 +16,7 @@ npm install
 npm start
 
 // Build web app for deployment
-npm build
+npm run-script build
 ```
 
 ## TODO
