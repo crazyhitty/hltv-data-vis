@@ -1,6 +1,5 @@
 {
   "name": "hltv-data-vis",
-  "homepage": "https://crazyhitty.github.io/htlv-data-vis/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
