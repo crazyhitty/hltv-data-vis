@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Linking,
   StyleSheet,
@@ -7,8 +7,8 @@ import {
   View,
 } from "react-native";
 import WepStats from "./weapon_stats_monthly_avg.json";
-import LineChart, { WeaponStats } from "./components/LineChart";
-import { APP_FONT, END_DATE, START_DATE } from "./constants";
+import LineChart  from "./components/LineChart";
+import { APP_FONT } from "./constants";
 import WeaponSelector, {
   WeaponSelectorItem,
 } from "./components/WeaponSelector";
@@ -60,29 +60,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const getMonthlyAvgData = (): Promise<WeaponStats> => {
-  return fetch(
-    "https://raw.githubusercontent.com/crazyhitty/hltv-scraping/master/data/weapon_stats_monthly_avg.json?token=AB5SKSEJMB6PD7H2ZNYNZ23AHM5KQ"
-  ).then((res) => res.json());
-};
-
 const App = (props: AppProps) => {
   const [theme, setTheme] = useState(Theme.Light);
   const [selectedWeapons, setSelectedWeapons] = useState<WeaponSelectorItem[]>(
     []
   );
-  const [data, setData] = useState<WeaponStats>();
-
-  useEffect(() => {
-    getMonthlyAvgData()
-      .then((data) => {
-        console.log("yoyo", data);
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("noooooo", error);
-      });
-  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
