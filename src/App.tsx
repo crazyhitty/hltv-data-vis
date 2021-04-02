@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import WepStats from "./weapon_stats_monthly_avg.json";
-import LineChart  from "./components/LineChart";
+import LineChart from "./components/LineChart";
 import { APP_FONT } from "./constants";
 import WeaponSelector, {
   WeaponSelectorItem,
@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
   },
   footerTextContainer: {
     flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  footerTextHltvLink: {
+    flexDirection: "row",
   },
 });
 
@@ -98,20 +102,27 @@ const App = (props: AppProps) => {
             />
           </View>
           <View style={styles.footerTextContainer}>
-            <Text
-              style={[
-                styles.subtitle,
-                { color: theme === Theme.Light ? "black" : "white" },
-              ]}
-            >
-              {`Data scraped from `}
-            </Text>
+            <View style={styles.footerTextHltvLink}>
+              <Text
+                style={[
+                  styles.subtitle,
+                  { color: theme === Theme.Light ? "black" : "white" },
+                ]}
+              >
+                {`Data scraped from `}
+              </Text>
+              <TouchableOpacity
+                onPress={() => Linking.openURL("https://www.hltv.org/stats")}
+              >
+                <Text style={styles.link}>{"hltv.org"}</Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity
-              onPress={() => {
-                Linking.openURL("https://www.hltv.org/stats");
-              }}
+              onPress={() =>
+                Linking.openURL("https://github.com/crazyhitty/htlv-data-vis")
+              }
             >
-              <Text style={styles.link}>{"hltv.org"}</Text>
+              <Text style={styles.link}>{"Github"}</Text>
             </TouchableOpacity>
           </View>
           {/*Theme switcher currently disabled*/}
