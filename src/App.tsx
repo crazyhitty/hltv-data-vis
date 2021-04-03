@@ -119,7 +119,7 @@ const App = (props: AppProps) => {
             </View>
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL("https://github.com/crazyhitty/htlv-data-vis")
+                Linking.openURL("https://github.com/crazyhitty/hltv-data-vis")
               }
             >
               <Text style={styles.link}>{"Github"}</Text>
