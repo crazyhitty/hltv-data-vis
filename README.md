@@ -4,7 +4,7 @@ Visualisation for data scraped from [hltv.org](https://www.hltv.org/)
 
 Currently only shows monthly weapon usage stats from Aug 2012 till March 2021.
 
-Check the preview over here: https://hltv-data-vis.herokuapp.com/
+Check the preview over here: https://hltv-data-vis-cnny4.ondigitalocean.app/
 
 ![Screenshot](.github/screenshot.png)
 
