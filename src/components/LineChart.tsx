@@ -25,9 +25,16 @@ interface LineChartProps extends AppProps {
   selectedWeapons: WeaponSelectorItem[];
 }
 
+enum LinePathType {
+  START,
+  NORMAL,
+  END
+}
+
 type LinePath = {
   weapon: WeaponSelectorItem;
   value: string;
+  type: LinePathType
 };
 
 type AxisLabel = {
@@ -65,12 +72,56 @@ const getPathData = (
   const paths: LinePath[] = [];
 
   selectedWeapons.forEach((selectedWeapon) => {
-    // const sortedData = sortData(data, selectedWeapon.name as Weapon);
+    const prePath = pathGenerator(
+      [
+        {
+          date: data[selectedWeapon.name as Weapon][0].date,
+          value: 0,
+        },
+        {
+          date: data[selectedWeapon.name as Weapon][0].date,
+          value: data[selectedWeapon.name as Weapon][0].value,
+        },
+      ]
+    );
+
+    if (prePath) {
+      paths.push({
+        weapon: selectedWeapon,
+        value: prePath,
+        type: LinePathType.START,
+      });
+    }
+
     const path = pathGenerator(data[selectedWeapon.name as Weapon]);
+
     if (path) {
       paths.push({
         weapon: selectedWeapon,
         value: path,
+        type: LinePathType.NORMAL,
+      });
+    }
+
+    const lastItemIndex = data[selectedWeapon.name as Weapon].length - 1
+    const postPath = pathGenerator(
+      [
+        {
+          date: data[selectedWeapon.name as Weapon][lastItemIndex].date,
+          value: data[selectedWeapon.name as Weapon][lastItemIndex].value,
+        },
+        {
+          date: data[selectedWeapon.name as Weapon][lastItemIndex].date,
+          value: 0,
+        },
+      ]
+    );
+
+    if (postPath) {
+      paths.push({
+        weapon: selectedWeapon,
+        value: postPath,
+        type: LinePathType.END,
       });
     }
   });
@@ -241,13 +292,15 @@ const LineChart = (props: LineChartProps) => {
       <Svg width={props.width} height="400">
         {paths.map((path) => (
           <Path
-            key={path.weapon.name}
+            key={path.weapon.name + path.type}
             d={path.value}
             fill="none"
             stroke={path.weapon.color}
             strokeWidth="2"
             strokeLinejoin="round"
             strokeLinecap="round"
+            strokeDasharray={path.type === LinePathType.NORMAL ? [] : [1, 5]}
+            strokeOpacity={path.type === LinePathType.NORMAL ? 1 : 0.25}
           />
         ))}
         {yAxis}
